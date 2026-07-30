@@ -44,6 +44,7 @@ export const skills = {
 export const projects = [
   {
     title: 'Student Management REST API',
+    image: '/images/projects/student-management-api.png',
     description:
       'A comprehensive RESTful API for managing student records with full CRUD operations, request validation, MySQL database integration, and Swagger UI documentation.',
     technologies: ['Python', 'FastAPI', 'SQLAlchemy', 'MySQL', 'Pydantic', 'Git', 'Postman'],
@@ -60,6 +61,7 @@ export const projects = [
   },
   {
     title: 'Expense Tracker',
+    image: '/images/projects/expense-tracker.png',
     description:
       'A Python application to log and analyze daily expenses, generating summary reports to surface spending patterns using file handling and core data structures.',
     technologies: ['Python'],
@@ -69,11 +71,12 @@ export const projects = [
       'File Handling',
       'Data Management',
     ],
-    github: null,
+    github: 'https://github.com/Manjeetsingh31/expense-tracker-python',
     live: null,
   },
   {
     title: 'To-Do List Application',
+    image: '/images/projects/todo-list.png',
     description:
       'A task management application supporting full CRUD operations for daily task tracking with a clean console interface.',
     technologies: ['Python'],
@@ -87,6 +90,7 @@ export const projects = [
   },
   {
     title: 'Personal Portfolio Website',
+    image: '/images/projects/portfolio.png',
     description:
       'A responsive personal portfolio website showcasing skills and projects with dark/light mode, smooth animations, and glassmorphism UI design.',
     technologies: ['React', 'Vite', 'Framer Motion', 'CSS Modules'],
@@ -96,7 +100,7 @@ export const projects = [
       'Smooth Animations',
       'Glassmorphism UI',
     ],
-    github: null,
+    github: 'https://github.com/Manjeetsingh31/My-Portfolio',
     live: null,
   },
 ]
@@ -126,10 +130,52 @@ export const education = [
 ]
 
 export const certifications = [
-  'Web Development Certification',
-  'Python Programming Certification',
-  'Oracle Cloud Infrastructure Data Science Professional Certification',
-  'Deloitte Data Analytics Virtual Experience Program',
-  'Google Cloud Arcade Participant',
-  '50-Day LeetCode Challenge',
+  {
+    name: 'Python Programming Certification',
+    org: 'Python',
+    image: '/images/certificates/python.png',
+    description: 'Comprehensive certification demonstrating proficiency in Python fundamentals, data structures, and object-oriented programming.',
+    url: null,
+    verifyUrl: null,
+  },
+  {
+    name: 'Oracle Cloud Infrastructure Data Science Professional Certification',
+    org: 'Oracle',
+    image: '/images/certificates/oracle.png',
+    description: 'Professional-level certification validating expertise in data science methodologies and Oracle Cloud Infrastructure services.',
+    url: null,
+    verifyUrl: null,
+  },
+  {
+    name: 'Deloitte Data Analytics Virtual Experience Program',
+    org: 'Deloitte',
+    image: '/images/certificates/deloitte.png',
+    description: 'Hands-on virtual internship simulating real-world data analytics workflows, dashboard creation, and client communication.',
+    url: null,
+    verifyUrl: null,
+  },
+  {
+    name: 'Google Cloud Arcade Participant',
+    org: 'Google Cloud',
+    image: '/images/certificates/google-cloud.png',
+    description: 'Active participant in Google Cloud skills development program, completing hands-on labs and cloud computing challenges.',
+    url: null,
+    verifyUrl: null,
+  },
+  {
+    name: '50-Day LeetCode Challenge',
+    org: 'LeetCode',
+    image: '/images/certificates/leetcode.png',
+    description: 'Consistent problem-solving practice across algorithms, data structures, and database challenges over 50 consecutive days.',
+    url: 'https://leetcode.com/u/Manjeet012/',
+    verifyUrl: 'https://leetcode.com/u/Manjeet012/',
+  },
+  {
+    name: 'Web Development Certification',
+    org: 'Web Development',
+    image: '/images/certificates/web-development.png',
+    description: 'Foundational certification covering HTML, CSS, JavaScript, and responsive web design principles.',
+    url: null,
+    verifyUrl: null,
+  },
 ]

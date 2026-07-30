@@ -1,8 +1,19 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Folder, ExternalLink, CheckCircle2 } from 'lucide-react'
 import { FaGithub } from 'react-icons/fa'
 import { projects } from '../../data'
 import styles from './Projects.module.css'
+
+const isValidUrl = (url) => {
+  if (!url || typeof url !== 'string') return false
+  try {
+    const parsed = new URL(url)
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:'
+  } catch {
+    return false
+  }
+}
 
 const containerVariants = {
   hidden: {},
@@ -20,6 +31,83 @@ const gradientPairs = [
   { from: '#00d2ff', to: '#6c63ff' },
   { from: '#8b83ff', to: '#ff85a0' },
 ]
+
+const ProjectCard = ({ project, grad, variants }) => {
+  const [imgError, setImgError] = useState(false)
+
+  return (
+    <motion.div className={styles.card} variants={variants}>
+      <div
+        className={styles.imageWrapper}
+        style={{ background: `linear-gradient(135deg, ${grad.from}, ${grad.to})` }}
+      >
+        {!imgError && (
+          <img
+            src={project.image}
+            alt={project.title}
+            loading="lazy"
+            className={styles.projectImage}
+            onError={() => setImgError(true)}
+          />
+        )}
+        {imgError && (
+          <>
+            <div className={styles.imageOverlay} />
+            <Folder size={40} className={styles.imageIcon} />
+            <span className={styles.imageLabel}>{project.title}</span>
+          </>
+        )}
+      </div>
+
+      <div className={styles.cardBody}>
+        <h3 className={styles.projectTitle}>{project.title}</h3>
+        <p className={styles.description}>{project.description}</p>
+
+        <div className={styles.techList}>
+          {project.technologies.map((tech) => (
+            <span key={tech} className={styles.techBadge}>
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <ul className={styles.featureList}>
+          {project.features.map((feature) => (
+            <li key={feature} className={styles.featureItem}>
+              <CheckCircle2 size={14} className={styles.checkIcon} />
+              {feature}
+            </li>
+          ))}
+        </ul>
+
+        <div className={styles.actions}>
+          {isValidUrl(project.github) && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`btn btn-outline ${styles.actionBtn}`}
+            >
+              <FaGithub size={16} />
+              GitHub
+            </a>
+          )}
+          {isValidUrl(project.live) && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`btn btn-primary ${styles.actionBtn}`}
+            >
+              <ExternalLink size={16} />
+              Live Demo
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  )
+}
 
 const Projects = () => {
   return (
@@ -47,68 +135,14 @@ const Projects = () => {
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
         >
-          {projects.map((project, index) => {
-            const grad = gradientPairs[index % gradientPairs.length]
-            return (
-              <motion.div key={project.title} className={styles.card} variants={cardVariants}>
-                <div
-                  className={styles.imageWrapper}
-                  style={{ background: `linear-gradient(135deg, ${grad.from}, ${grad.to})` }}
-                >
-                  <div className={styles.imageOverlay} />
-                  <Folder size={40} className={styles.imageIcon} />
-                  <span className={styles.imageLabel}>{project.title}</span>
-                </div>
-
-                <div className={styles.cardBody}>
-                  <h3 className={styles.projectTitle}>{project.title}</h3>
-                  <p className={styles.description}>{project.description}</p>
-
-                  <div className={styles.techList}>
-                    {project.technologies.map((tech) => (
-                      <span key={tech} className={styles.techBadge}>
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <ul className={styles.featureList}>
-                    {project.features.map((feature) => (
-                      <li key={feature} className={styles.featureItem}>
-                        <CheckCircle2 size={14} className={styles.checkIcon} />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className={styles.actions}>
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`btn btn-outline ${styles.actionBtn}`}
-                      >
-                        <FaGithub size={16} />
-                        GitHub
-                      </a>
-                    )}
-                    {project.live && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`btn btn-primary ${styles.actionBtn}`}
-                      >
-                        <ExternalLink size={16} />
-                        Live Demo
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            )
-          })}
+          {projects.map((project, index) => (
+            <ProjectCard
+              key={project.title}
+              project={project}
+              grad={gradientPairs[index % gradientPairs.length]}
+              variants={cardVariants}
+            />
+          ))}
         </motion.div>
       </div>
     </section>

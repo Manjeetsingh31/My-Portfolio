@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useTypewriter, Cursor } from 'react-simple-typewriter'
 import { motion } from 'framer-motion'
 import { Link } from 'react-scroll'
@@ -24,6 +25,14 @@ const itemVariants = {
 }
 
 const Hero = () => {
+  const [hasResume, setHasResume] = useState(false)
+
+  useEffect(() => {
+    fetch('/resume.pdf', { method: 'HEAD' })
+      .then((res) => setHasResume(res.ok))
+      .catch(() => setHasResume(false))
+  }, [])
+
   const [typewriter] = useTypewriter({
     words: personalData.titles,
     loop: true,
@@ -31,8 +40,6 @@ const Hero = () => {
     deleteSpeed: 40,
     delaySpeed: 2000,
   })
-
-  const hasResume = false
 
   return (
     <section id="home" className={styles.hero}>
@@ -79,15 +86,26 @@ const Hero = () => {
                 View Projects
               </Link>
 
-              <button
-                className={`btn btn-outline ${styles.btn}`}
-                onClick={() => {}}
-                disabled={!hasResume}
-                title={!hasResume ? 'Resume will be available soon.' : ''}
-              >
-                Download Resume
-                <ExternalLink size={16} />
-              </button>
+              {hasResume ? (
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`btn btn-outline ${styles.btn}`}
+                >
+                  Download Resume
+                  <ExternalLink size={16} />
+                </a>
+              ) : (
+                <button
+                  className={`btn btn-outline ${styles.btn}`}
+                  disabled
+                  title="Resume will be available soon."
+                >
+                  Download Resume
+                  <ExternalLink size={16} />
+                </button>
+              )}
 
               <Link
                 to="contact"
