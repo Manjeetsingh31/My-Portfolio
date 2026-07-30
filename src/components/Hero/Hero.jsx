@@ -130,7 +130,7 @@ const Hero = () => {
           </motion.div>
 
           <motion.div className={styles.imageSection} variants={itemVariants}>
-            <ProfileImage />
+            <ProfileImage src="/images/profile.png" />
           </motion.div>
         </div>
       </motion.div>
